@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Vides & Circuitos — Corrector de Factor de Potencia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --forest:#0f1a14;
+    --forest-2:#182a20;
+    --moss:#3b5a45;
+    --copper:#c97a3b;
+    --copper-2:#e09a5a;
+    --cream:#f2ead3;
+    --cream-2:#e6dcbe;
+    --leaf:#6b8a6e;
+    --ink:#0f1a14;
+    --muted:#6a7a6e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--cream);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:400;font-size:15.5px;line-height:1.65;overflow-x:hidden}
+  ::selection{background:var(--copper);color:var(--cream)}
+
+  /* animated grain */
+  body::before{
+    content:"";position:fixed;inset:-200px;pointer-events:none;z-index:999;opacity:.08;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .06  0 0 0 0 .1  0 0 0 0 .08  0 0 0 .8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    animation:grain 1.2s steps(3) infinite;
+    mix-blend-mode:multiply;
+  }
+  @keyframes grain{
+    0%,100%{transform:translate(0,0)}
+    25%{transform:translate(-12px,8px)}
+    50%{transform:translate(8px,-10px)}
+    75%{transform:translate(-4px,14px)}
+  }
+
+  /* warm gradient glow bg */
+  .glow{position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(ellipse 50% 40% at 20% 10%, #c97a3b22 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 85% 40%, #6b8a6e22 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 60% 90%, #c97a3b18 0%, transparent 70%);
+  }
+
+  /* top nav */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 40px;display:flex;justify-content:space-between;align-items:center;background:#f2ead3cc;backdrop-filter:blur(12px);border-bottom:1px solid #c97a3b33}
+  nav .brand{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;letter-spacing:.01em}
+  nav .brand b{font-style:normal;font-weight:400;color:var(--copper)}
+  nav .links{display:flex;gap:28px;font-size:13px;letter-spacing:.15em;text-transform:uppercase;color:var(--moss)}
+  nav .links a{color:inherit;text-decoration:none;position:relative}
+  nav .links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--copper);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.22,1,.36,1)}
+  nav .links a:hover::after{transform:scaleX(1)}
+  nav .cta{font-size:13px;letter-spacing:.15em;text-transform:uppercase;padding:10px 18px;border:1px solid var(--copper);border-radius:999px;color:var(--copper);text-decoration:none;transition:all .5s cubic-bezier(.22,1,.36,1)}
+  nav .cta:hover{background:var(--copper);color:var(--cream)}
+
+  main{padding-top:72px;position:relative}
+
+  /* vines — used across several sections */
+  .vine{position:absolute;pointer-events:none;z-index:0}
+  .vine path{fill:none;stroke:var(--copper);stroke-width:1.2;opacity:.6}
+  .vine .leaf{fill:var(--leaf);opacity:.85}
+  .vine .node{fill:var(--copper)}
+
+  /* typography */
+  h1,h2,h3,.serif{font-family:'Instrument Serif',serif;font-weight:400;letter-spacing:-.015em;line-height:1}
+  h1{font-size:clamp(60px,11vw,170px);line-height:.92;font-weight:400}
+  h1 em{font-style:italic;color:var(--copper)}
+  h2{font-size:clamp(44px,6.5vw,88px);line-height:1;font-weight:400}
+  h2 em{font-style:italic;color:var(--copper)}
+  h3{font-family:'Instrument Serif',serif;font-size:26px;font-style:italic;color:var(--moss)}
+  p{max-width:58ch;color:var(--ink)}
+  .lead{font-family:'Instrument Serif',serif;font-size:24px;line-height:1.4;font-style:italic;color:var(--moss);max-width:42ch}
+  .kicker{display:inline-flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.35em;text-transform:uppercase;color:var(--copper);margin-bottom:18px}
+  .kicker::before{content:"✻";font-size:16px;letter-spacing:0}
+
+  section{max-width:1280px;margin:0 auto;padding:110px 40px;position:relative}
+
+  /* HERO */
+  #hero{padding-top:60px;padding-bottom:140px}
+  #hero .g{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;position:relative;z-index:1}
+  #hero .stats{display:flex;flex-wrap:wrap;gap:36px;margin-top:48px;padding-top:28px;border-top:1px solid #c97a3b44}
+  #hero .stat{position:relative}
+  #hero .stat .k{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted);margin-bottom:4px;font-family:'Outfit'}
+  #hero .stat .v{font-family:'Instrument Serif',serif;font-size:42px;line-height:1;color:var(--ink)}
+  #hero .stat .v em{color:var(--copper);font-style:italic}
+  #hero .visual{position:relative;aspect-ratio:1/1.1;border-radius:50% 50% 46% 54% / 48% 54% 46% 52%;overflow:hidden;
+    background:
+      radial-gradient(ellipse at 30% 30%, #e09a5a 0%, #c97a3b 40%, #8a4e22 80%, var(--forest-2) 100%);
+    box-shadow:0 40px 100px #0f1a1422, inset 0 0 80px #0f1a1433;
+    animation:morph 18s ease-in-out infinite;
+  }
+  @keyframes morph{
+    0%,100%{border-radius:50% 50% 46% 54% / 48% 54% 46% 52%}
+    33%{border-radius:58% 42% 54% 46% / 44% 58% 42% 56%}
+    66%{border-radius:44% 56% 48% 52% / 56% 44% 58% 42%}
+  }
+  #hero .visual::before{content:"";position:absolute;inset:0;
+    background:
+      repeating-linear-gradient(120deg, transparent 0 40px, #0f1a1422 40px 41px),
+      repeating-linear-gradient(60deg, transparent 0 40px, #0f1a1422 40px 41px);
+  }
+  #hero .visual::after{
+    content:"";position:absolute;inset:15%;border:1px solid #f2ead366;border-radius:50%;
+    animation:spin 60s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  #hero .visual .inner-label{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--cream);font-family:'Instrument Serif',serif;text-align:center;padding:40px}
+  #hero .visual .inner-label .num{font-size:clamp(80px,15vw,180px);line-height:.85;font-style:italic}
+  #hero .visual .inner-label .lbl{font-family:'Outfit';font-size:12px;letter-spacing:.4em;text-transform:uppercase;margin-top:8px;opacity:.8}
+  #hero .visual .inner-label .sub{font-style:italic;font-size:20px;margin-top:16px;max-width:18ch;opacity:.9}
+
+  /* vine for hero */
+  #hero .vine{top:-40px;right:-40px;width:420px;height:520px;transform:rotate(-10deg)}
+
+  /* §02 TRIÁNGULO */
+  #pqs{padding-top:60px}
+  #pqs .g{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center}
+  #pqs .fig-wrap{position:relative}
+  #pqs .fig{background:linear-gradient(145deg, var(--forest) 0%, var(--forest-2) 100%);color:var(--cream);padding:48px;border-radius:32px 32px 28px 36px;position:relative;overflow:hidden;box-shadow:0 30px 80px #0f1a1422}
+  #pqs .fig::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 20% 20%, #c97a3b33 0%, transparent 50%);
+  }
+  #pqs .fig svg{width:100%;height:auto;position:relative;z-index:1}
+  #pqs .fig .cap{font-family:'Instrument Serif',serif;font-style:italic;font-size:14px;color:var(--copper-2);margin-top:14px;position:relative;z-index:1}
+  #pqs .legend{display:grid;gap:14px;margin-top:24px}
+  #pqs .legend .row{display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;padding:14px 0;border-bottom:1px solid #c97a3b33}
+  #pqs .legend .dot{width:18px;height:18px;border-radius:50%}
+  #pqs .legend .name{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic}
+  #pqs .legend .v{font-family:'Outfit';font-weight:500;font-size:16px;letter-spacing:.1em;color:var(--copper)}
+
+  /* §03 LAB */
+  #lab{background:var(--forest);color:var(--cream);max-width:none;padding:140px 40px;border-radius:60px 60px 0 0;margin-top:-40px;position:relative;overflow:hidden}
+  #lab::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(ellipse 80% 40% at 20% 0%, #c97a3b22 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 100% 80%, #6b8a6e22 0%, transparent 70%);
+  }
+  #lab .inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:64px;align-items:center;position:relative;z-index:1}
+  #lab h2{color:var(--cream)}
+  #lab h2 em{color:var(--copper-2)}
+  #lab .kicker{color:var(--copper-2)}
+  #lab .lead{color:#c7b99a}
+  #lab p{color:#c7b99a}
+  #lab .stage{aspect-ratio:4/3.2;border:1px dashed var(--copper-2);border-radius:48px;padding:48px;position:relative;background:
+    radial-gradient(ellipse at center, #1f3326 0%, var(--forest) 100%);
+    display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;
+  }
+  #lab .stage::before{content:"";position:absolute;inset:0;
+    background-image:
+      radial-gradient(circle at 30% 30%, #c97a3b44 2px, transparent 3px),
+      radial-gradient(circle at 70% 60%, #6b8a6e44 2px, transparent 3px),
+      radial-gradient(circle at 50% 80%, #c97a3b33 2px, transparent 3px);
+    background-size:80px 80px, 120px 120px, 60px 60px;
+    opacity:.6;
+  }
+  #lab .stage .big{font-family:'Instrument Serif',serif;font-size:clamp(40px,5vw,72px);line-height:1;max-width:14ch;position:relative;z-index:1;font-style:italic}
+  #lab .stage .big b{font-style:normal;color:var(--copper-2);font-weight:400}
+  #lab .stage .meta{font-family:'Outfit';font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#c7b99a;display:flex;justify-content:space-between;position:relative;z-index:1}
+  #lab .stage .badge{position:absolute;top:24px;right:24px;font-family:'Instrument Serif',serif;font-style:italic;font-size:15px;color:var(--copper-2);padding:6px 14px;border:1px solid var(--copper-2);border-radius:999px}
+
+  /* §04 FIX */
+  #fix{padding-top:140px}
+  #fix .g{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  #fix .diagram{background:var(--cream-2);border-radius:36px;padding:40px;position:relative;overflow:hidden;border:1px solid #c97a3b33}
+  #fix .diagram svg{width:100%;height:auto}
+  .ba{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:32px}
+  .ba .card{padding:32px;border-radius:24px;text-align:center}
+  .ba .card.b{background:var(--cream-2);border:1px solid #c97a3b33;color:var(--moss)}
+  .ba .card.a{background:var(--forest);color:var(--cream)}
+  .ba .k{font-size:11px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:10px;opacity:.7;font-family:'Outfit'}
+  .ba .v{font-family:'Instrument Serif',serif;font-size:68px;line-height:1;font-style:italic}
+  .ba .card.a .v{color:var(--copper-2)}
+
+  /* §05 COST */
+  #cost{padding-top:140px}
+  #cost .g{display:grid;grid-template-columns:1fr 1.3fr;gap:64px;align-items:center}
+  .panel{background:linear-gradient(145deg, var(--cream) 0%, var(--cream-2) 100%);border-radius:40px;padding:48px;border:1px solid #c97a3b33;box-shadow:0 20px 60px #0f1a1415;position:relative;overflow:hidden}
+  .panel::before{content:"";position:absolute;top:-80px;right:-80px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle, #c97a3b22 0%, transparent 70%);pointer-events:none}
+  .panel .row{display:grid;grid-template-columns:1.3fr 2fr auto;gap:24px;align-items:center;padding:20px 0;border-bottom:1px solid #c97a3b22}
+  .panel .row:last-of-type{border-bottom:none}
+  .panel .lbl{font-family:'Instrument Serif',serif;font-style:italic;font-size:20px;color:var(--moss)}
+  .panel .val{font-family:'Instrument Serif',serif;font-size:30px;font-style:italic;text-align:right;color:var(--ink)}
+  .knob{height:6px;background:#c97a3b22;border-radius:999px;position:relative}
+  .knob::before{content:"";position:absolute;top:0;bottom:0;left:0;background:linear-gradient(90deg, var(--copper-2), var(--copper));border-radius:999px}
+  .knob::after{content:"";position:absolute;top:-8px;width:22px;height:22px;background:var(--cream);border:2px solid var(--copper);border-radius:50%;box-shadow:0 4px 12px #c97a3b44}
+  .knob.a::before{width:30%}.knob.a::after{left:calc(30% - 11px)}
+  .knob.b::before{width:64%}.knob.b::after{left:calc(64% - 11px)}
+  .knob.c::before{width:46%}.knob.c::after{left:calc(46% - 11px)}
+  .panel .total{margin-top:32px;padding-top:28px;border-top:2px solid var(--copper);display:flex;justify-content:space-between;align-items:baseline;gap:24px}
+  .panel .total .lab{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:var(--moss)}
+  .panel .total .n{font-family:'Instrument Serif',serif;font-size:clamp(56px,9vw,120px);line-height:.95;font-style:italic;color:var(--copper);letter-spacing:-.02em}
+
+  /* §06 FAN */
+  #fan{padding-top:140px;padding-bottom:140px}
+  #fan .g{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+  .fan-orb{aspect-ratio:1/1;border-radius:50%;position:relative;overflow:hidden;
+    background:
+      radial-gradient(circle at 30% 30%, #e6dcbe 0%, #c97a3b 50%, #8a4e22 100%);
+    box-shadow:0 40px 100px #0f1a1433, inset 0 0 60px #0f1a1433;
+  }
+  .fan-orb svg{position:absolute;inset:10%;width:80%;height:80%;filter:drop-shadow(0 4px 12px #0f1a1466)}
+  @keyframes slowspin{to{transform:rotate(360deg)}}
+  .fan-orb .blades{animation:slowspin 8s linear infinite;transform-origin:center}
+  .fan-orb::after{content:"";position:absolute;inset:0;border:1px solid var(--cream);border-radius:50%;opacity:.3}
+  .specs{list-style:none;display:grid;grid-template-columns:1fr auto;gap:0;margin-top:24px;border-top:1px solid #c97a3b44}
+  .specs dt{font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;color:var(--moss);padding:14px 0;border-bottom:1px solid #c97a3b22}
+  .specs dd{font-family:'Instrument Serif',serif;font-size:20px;text-align:right;padding:14px 0;border-bottom:1px solid #c97a3b22}
+  .specs dd b{color:var(--copper);font-weight:400;font-style:italic}
+
+  /* CTA */
+  #cta{background:var(--forest);color:var(--cream);max-width:none;padding:140px 40px;border-radius:60px 60px 0 0;position:relative;overflow:hidden;margin-top:-40px}
+  #cta::before{content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 30%, #c97a3b33 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 10% 80%, #6b8a6e33 0%, transparent 70%);
+  }
+  #cta .inner{max-width:1180px;margin:0 auto;position:relative;z-index:1;text-align:center}
+  #cta h2{color:var(--cream);font-size:clamp(56px,9vw,128px)}
+  #cta h2 em{color:var(--copper-2)}
+  #cta .kicker{color:var(--copper-2);justify-content:center}
+  #cta .lead{color:#c7b99a;margin:32px auto 0;text-align:center}
+  #cta .actions{margin-top:44px;display:flex;gap:24px;justify-content:center;flex-wrap:wrap}
+  #cta .btn{display:inline-block;padding:20px 40px;border-radius:999px;background:var(--copper);color:var(--cream);text-decoration:none;font-family:'Outfit';font-weight:500;font-size:15px;letter-spacing:.2em;text-transform:uppercase;transition:all .6s cubic-bezier(.22,1,.36,1);position:relative;overflow:hidden}
+  #cta .btn:hover{background:var(--copper-2);transform:translateY(-2px);box-shadow:0 20px 40px #c97a3b44}
+  #cta .btn.ghost{background:transparent;border:1px solid var(--copper-2);color:var(--copper-2)}
+  #cta .btn.ghost:hover{background:var(--copper-2);color:var(--forest)}
+
+  /* FOOTER */
+  footer{background:var(--forest-2);color:#c7b99a;padding:80px 40px 40px}
+  footer .inner{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;align-items:start}
+  footer .brand-f{font-family:'Instrument Serif',serif;font-size:36px;line-height:1;font-style:italic}
+  footer .brand-f b{font-style:normal;color:var(--copper-2);font-weight:400}
+  footer .brand-f + p{font-family:'Instrument Serif',serif;font-style:italic;font-size:16px;margin-top:16px;max-width:36ch}
+  footer b.lab{display:block;font-family:'Outfit';font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--copper-2);margin-bottom:14px;font-weight:500}
+  footer a{display:block;color:#c7b99a;text-decoration:none;padding:3px 0}
+  footer a:hover{color:var(--copper-2)}
+  .colophon{grid-column:1/-1;margin-top:40px;padding-top:24px;border-top:1px solid #c97a3b33;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-family:'Instrument Serif',serif;font-style:italic;font-size:14px;color:#8a8070}
+
+  /* reveal w/ organic easing */
+  [data-reveal]{opacity:0;transform:translateY(28px);transition:opacity 1.3s cubic-bezier(.22,1,.36,1), transform 1.3s cubic-bezier(.22,1,.36,1)}
+  [data-reveal].in{opacity:1;transform:none}
+
+  @media(max-width:900px){
+    #hero .g,#pqs .g,#lab .inner,#fix .g,#cost .g,#fan .g{grid-template-columns:1fr}
+    footer .inner{grid-template-columns:1fr 1fr}
+    nav .links{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="glow" aria-hidden="true"></div>
+
+<nav>
+  <div class="brand"><b>V&amp;C</b> · Corrector <em>automático</em> de factor</div>
+  <div class="links">
+    <a href="#pqs">Triángulo</a>
+    <a href="#lab">Laboratorio</a>
+    <a href="#fix">Corrección</a>
+    <a href="#cost">Coste</a>
+  </div>
+  <a href="#cta" class="cta">Pedir lectura</a>
+</nav>
+
+<main>
+
+<!-- §01 HERO -->
+<section id="hero" data-reveal>
+  <svg class="vine" viewBox="0 0 420 520" aria-hidden="true">
+    <path d="M 60 500 C 120 400, 40 320, 140 240 S 240 120, 200 40"/>
+    <path d="M 60 500 C 120 400, 40 320, 140 240 S 240 120, 200 40" stroke-dasharray="4 6" opacity=".35"/>
+    <g class="leaf">
+      <path d="M 110 380 q -20 -18 -10 -40 q 26 6 30 30 q -8 8 -20 10 z"/>
+      <path d="M 130 280 q 20 -8 36 6 q -6 22 -32 26 q -8 -14 -4 -32 z"/>
+      <path d="M 180 140 q -18 8 -14 30 q 24 -2 30 -22 q -6 -8 -16 -8 z"/>
+    </g>
+    <circle class="node" cx="60" cy="500" r="5"/>
+    <circle class="node" cx="140" cy="240" r="4"/>
+    <circle class="node" cx="200" cy="40" r="5"/>
+  </svg>
+  <div class="g">
+    <div>
+      <span class="kicker">Seminario III · Medellín · 2026</span>
+      <h1>La energía que<br>tu tienda paga,<br>pero <em>nunca</em> usa.</h1>
+      <p class="lead" style="margin-top:28px">Una MiPyme típica del Valle de Aburrá opera con cos φ ≈ 0,72. Cada decimal por debajo de 0,90 es corriente que viaja sin hacer trabajo — y que EPM factura de todos modos.</p>
+      <div class="stats">
+        <div class="stat"><div class="k">cos φ actual</div><div class="v">0,72</div></div>
+        <div class="stat"><div class="k">cos φ objetivo</div><div class="v"><em>0,98</em></div></div>
+        <div class="stat"><div class="k">ahorro anual</div><div class="v">$566K</div></div>
+        <div class="stat"><div class="k">retorno</div><div class="v">9 m</div></div>
+      </div>
+    </div>
+    <div class="visual">
+      <div class="inner-label">
+        <div class="num"><em>0,72</em></div>
+        <div class="lbl">cos φ medido</div>
+        <div class="sub">« la corriente está<br>desalineada de la tensión »</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §02 PQS -->
+<section id="pqs" data-reveal>
+  <div class="g">
+    <div>
+      <span class="kicker">Anatomía del problema</span>
+      <h2>Tres vectores<br>cuentan <em>toda</em><br>la historia.</h2>
+      <p style="margin-top:28px">La potencia activa <b style="color:var(--copper)">P</b> realiza trabajo: luz, frío, movimiento. La reactiva <b style="color:var(--moss)">Q</b> oscila entre red y motor sosteniendo campos magnéticos — va y vuelve sin producir nada. La aparente <b style="color:var(--copper)">S</b> es la hipotenusa: el dimensionado que la red debe soportar.</p>
+      <div class="legend">
+        <div class="row"><span class="dot" style="background:var(--copper)"></span><span class="name">P · activa</span><span class="v">8,20 kW</span></div>
+        <div class="row"><span class="dot" style="background:var(--moss)"></span><span class="name">Q · reactiva</span><span class="v">7,90 kVAR</span></div>
+        <div class="row"><span class="dot" style="background:var(--copper-2)"></span><span class="name">S · aparente</span><span class="v">11,40 kVA</span></div>
+      </div>
+    </div>
+    <div class="fig-wrap">
+      <div class="fig">
+        <svg viewBox="0 0 500 380">
+          <defs>
+            <filter id="oglow"><feGaussianBlur stdDeviation="1.5"/></filter>
+          </defs>
+          <g stroke="#c97a3b44" stroke-dasharray="3 5">
+            <line x1="60" y1="60" x2="60" y2="330"/>
+            <line x1="60" y1="330" x2="460" y2="330"/>
+          </g>
+          <!-- P -->
+          <path d="M 60 330 Q 230 332 420 330" fill="none" stroke="#c97a3b" stroke-width="3"/>
+          <!-- Q -->
+          <path d="M 420 330 Q 422 200 420 75" fill="none" stroke="#6b8a6e" stroke-width="2.5" stroke-dasharray="5 5"/>
+          <!-- S -->
+          <path d="M 60 330 Q 200 240 420 75" fill="none" stroke="#e09a5a" stroke-width="4" filter="url(#oglow)"/>
+          <path d="M 60 330 Q 200 240 420 75" fill="none" stroke="#e09a5a" stroke-width="2.5"/>
+          <!-- angle -->
+          <path d="M 130 330 A 70 70 0 0 0 108 283" fill="none" stroke="#f2ead3" stroke-width="1.2"/>
+          <text x="140" y="315" font-family="Instrument Serif" font-style="italic" font-size="22" fill="#f2ead3">φ</text>
+          <!-- labels -->
+          <text x="220" y="360" font-family="Instrument Serif" font-size="20" fill="#c97a3b" font-style="italic">P · 8,20 kW</text>
+          <text x="430" y="210" font-family="Instrument Serif" font-size="20" fill="#6b8a6e" font-style="italic">Q · 7,90</text>
+          <text x="130" y="180" font-family="Instrument Serif" font-size="22" fill="#e09a5a" font-style="italic" transform="rotate(-32 130 180)">S · 11,40 kVA</text>
+          <!-- leaves on vectors -->
+          <g fill="#6b8a6e" opacity=".85">
+            <path d="M 260 325 q -6 -10 0 -18 q 12 2 14 14 q -6 6 -14 4 z"/>
+            <path d="M 421 180 q -8 -6 -4 -16 q 14 0 16 12 q -8 4 -12 4 z"/>
+          </g>
+        </svg>
+        <div class="cap">Fig. ii — Triángulo de potencias, pre-corrección · cos φ = P / S = 0,72</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §03 LAB -->
+<section id="lab" data-reveal>
+  <div class="inner">
+    <div>
+      <span class="kicker">Escena interactiva</span>
+      <h2>Ver lo que<br>el ojo no <em>ve</em>.</h2>
+      <p class="lead" style="margin-top:28px">Un laboratorio tridimensional navegable: ventilador, banco capacitivo y osciloscopio en un mismo cuadro. Mueves el banco y el triángulo respira contigo.</p>
+      <p style="margin-top:16px">La geometría reacciona en tiempo real al ángulo φ. Las ondas V e I se aproximan o se desalinean al compás de la capacitancia. Es un instrumento pedagógico, no una simulación cualquiera.</p>
+      <p style="margin-top:12px;font-family:'Instrument Serif',serif;font-style:italic;color:var(--copper-2)">— en construcción, fase II.</p>
+    </div>
+    <div class="stage">
+      <span class="badge">Cap. iii · escena</span>
+      <div class="big"><b>[ escena 3D ]</b><br>brotando en<br>la fase II.</div>
+      <div class="meta"><span>Three · r160</span><span>1280 × 720</span><span>60 fps · target</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- §04 FIX -->
+<section id="fix" data-reveal>
+  <div class="g">
+    <div class="diagram">
+      <svg viewBox="0 0 520 360">
+        <defs>
+          <filter id="sh"><feDropShadow dx="0" dy="2" stdDeviation="1" flood-opacity=".15"/></filter>
+        </defs>
+        <g stroke="#0f1a14" stroke-width="1.6" fill="none" filter="url(#sh)">
+          <!-- organic curved bus -->
+          <path d="M 40 60 C 180 50, 340 72, 480 58"/>
+          <line x1="40" y1="60" x2="40" y2="310"/>
+          <path d="M 180 60 Q 178 110 180 150"/>
+          <circle cx="180" cy="180" r="30" stroke="#c97a3b" fill="#c97a3b22"/>
+          <path d="M 180 210 Q 182 260 180 310"/>
+          <path d="M 40 310 C 180 302, 340 322, 480 308"/>
+          <path d="M 360 58 Q 362 110 360 150"/>
+          <line x1="340" y1="150" x2="380" y2="150"/>
+          <line x1="340" y1="162" x2="380" y2="162"/>
+          <path d="M 360 162 Q 362 236 360 310"/>
+          <rect x="420" y="125" width="54" height="74" rx="14" fill="#c97a3b22" stroke="#c97a3b"/>
+          <path d="M 420 160 Q 400 156 382 152" stroke-dasharray="3 4"/>
+        </g>
+        <text x="180" y="188" text-anchor="middle" font-family="Instrument Serif" font-size="20" font-style="italic" fill="#0f1a14">M</text>
+        <text x="447" y="170" text-anchor="middle" font-family="Instrument Serif" font-size="13" font-style="italic" fill="#c97a3b">ctrl</text>
+        <g font-family="Outfit" font-size="10" fill="#6a7a6e" letter-spacing=".2em" style="text-transform:uppercase">
+          <text x="45" y="50">Red</text>
+          <text x="150" y="50">Motor</text>
+          <text x="330" y="50">Banco C</text>
+          <text x="415" y="115">Controlador</text>
+        </g>
+        <!-- vine overlay -->
+        <g fill="#6b8a6e" opacity=".7">
+          <path d="M 260 50 q 10 -10 20 -4 q -2 14 -16 16 q -8 -4 -4 -12 z"/>
+          <path d="M 300 315 q -8 10 0 20 q 16 -2 18 -16 q -8 -8 -18 -4 z"/>
+        </g>
+      </svg>
+    </div>
+    <div>
+      <span class="kicker">La corrección</span>
+      <h2>Un condensador<br>en el <em>lugar</em><br>correcto.</h2>
+      <p style="margin-top:24px">El corrector mide la corriente, calcula φ instantáneo y conecta escalones capacitivos hasta llevar el factor sobre 0,95. Sin intervención del dueño, sin apagar la operación.</p>
+      <div class="ba">
+        <div class="card b"><div class="k">Antes</div><div class="v">0,72</div></div>
+        <div class="card a"><div class="k">Después</div><div class="v">0,98</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §05 COST -->
+<section id="cost" data-reveal>
+  <div class="g">
+    <div>
+      <span class="kicker">Dinero en la factura</span>
+      <h2>Tres variables,<br>una <em>diferencia</em>.</h2>
+      <p style="margin-top:24px">Ajusta tu consumo, tu tarifa y tu factor actual. La calculadora estima lo que verás en la factura si llevas el cos φ a 0,95.</p>
+      <p style="margin-top:12px;color:var(--muted)">Mock visual — la versión funcional viene con la fase II.</p>
+    </div>
+    <div class="panel">
+      <div class="row"><span class="lbl">Consumo (kWh/mes)</span><div class="knob a"></div><span class="val">1 240</span></div>
+      <div class="row"><span class="lbl">cos φ actual</span><div class="knob c"></div><span class="val">0,72</span></div>
+      <div class="row"><span class="lbl">Tarifa ($/kWh)</span><div class="knob b"></div><span class="val">$ 712</span></div>
+      <div class="total">
+        <div class="lab">Ahorro anual estimado</div>
+        <div class="n">$ 566 400</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §06 FAN -->
+<section id="fan" data-reveal>
+  <div class="g">
+    <div class="fan-orb">
+      <svg viewBox="-100 -100 200 200">
+        <defs>
+          <filter id="fgl"><feGaussianBlur stdDeviation="1.2"/></filter>
+        </defs>
+        <circle r="92" fill="none" stroke="#f2ead3" stroke-width="1" stroke-dasharray="2 4" opacity=".5"/>
+        <g class="blades" fill="none" stroke="#0f1a14" stroke-width="2.5" filter="url(#fgl)">
+          <path d="M 0 -15 C -18 -40, -18 -80, 0 -85 C 18 -80, 18 -40, 0 -15 Z"/>
+          <path d="M 0 -15 C -18 -40, -18 -80, 0 -85 C 18 -80, 18 -40, 0 -15 Z" transform="rotate(120)"/>
+          <path d="M 0 -15 C -18 -40, -18 -80, 0 -85 C 18 -80, 18 -40, 0 -15 Z" transform="rotate(240)"/>
+        </g>
+        <circle r="22" fill="#0f1a14"/>
+        <circle r="6" fill="#e09a5a"/>
+      </svg>
+    </div>
+    <div>
+      <span class="kicker">El testigo físico</span>
+      <h2>Un motor real<br><em>valida</em> el modelo.</h2>
+      <p style="margin-top:24px">Un ventilador de pedestal, 1/4 HP, monofásico — el típico de una panadería o peluquería. Carga inductiva pura, cos φ medido 0,68. Instrumentado con transformador de corriente y vatímetro.</p>
+      <dl class="specs">
+        <dt>Potencia nominal</dt><dd><b>186 W</b></dd>
+        <dt>cos φ medido</dt><dd><b>0,68</b> ind.</dd>
+        <dt>Corriente en vacío</dt><dd><b>0,9 A</b></dd>
+        <dt>Tensión</dt><dd><b>220 V</b></dd>
+        <dt>Estado</dt><dd><b>operativo</b></dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- §07 CTA -->
+<section id="cta" data-reveal>
+  <div class="inner">
+    <span class="kicker">Epílogo</span>
+    <h2>Baja la factura.<br><em>Entiende</em> por qué.</h2>
+    <p class="lead">Agenda una lectura de quince minutos con tenaza sobre tu comercio en Medellín. Te entregamos el triángulo con tu nombre arriba — sin compromiso, impreso en papel.</p>
+    <div class="actions">
+      <a href="#" class="btn">Pedir lectura gratuita</a>
+      <a href="#" class="btn ghost">Ficha técnica (pdf)</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="inner">
+    <div>
+      <div class="brand-f"><b>Vides</b> &amp; Circuitos</div>
+      <p>Proyecto académico. Universidad de Medellín · Facultad de Ingenierías. Para MiPymes entre 5 y 40 kW instalados.</p>
+    </div>
+    <div>
+      <b class="lab">Proyecto</b>
+      <a href="#">Ficha técnica</a>
+      <a href="#">Bibliografía</a>
+      <a href="#">Repositorio</a>
+    </div>
+    <div>
+      <b class="lab">Seminario</b>
+      <a href="#">Programa</a>
+      <a href="#">Asesores</a>
+      <a href="#">Calendario</a>
+    </div>
+    <div>
+      <b class="lab">Contacto</b>
+      <a href="#">pablo@…</a>
+      <a href="#">Medellín, CO</a>
+    </div>
+    <div class="colophon">
+      <span>© MMXXVI · Seminario III · Revisión III</span>
+      <span>Instrument Serif &amp; Outfit</span>
+      <span>Crece con la luz, no con el recargo.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+  },{threshold:.06});
+  document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

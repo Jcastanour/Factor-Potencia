@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Elige una dirección — 4 variantes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;500&family=VT323&family=IBM+Plex+Mono&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Outfit:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:#0d0d0f;color:#e8e8ea;font-family:'Outfit',sans-serif;min-height:100vh;font-size:15px;line-height:1.6}
+  ::selection{background:#ffd400;color:#0d0d0f}
+
+  .wrap{max-width:1440px;margin:0 auto;padding:56px 40px 80px}
+
+  header{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:32px;border-bottom:1px solid #2a2a30;margin-bottom:56px}
+  header h1{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(36px,5vw,60px);letter-spacing:-.02em;line-height:1}
+  header h1 em{font-style:italic;color:#ffd400}
+  header .meta{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#7d7d85;text-align:right}
+  header .meta b{color:#e8e8ea;font-weight:500;display:block;margin-bottom:4px}
+
+  .lede{max-width:62ch;margin-bottom:48px;color:#b8b8bf;font-size:17px;line-height:1.6}
+  .lede b{color:#e8e8ea;font-weight:500}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
+
+  .card{position:relative;border-radius:4px;overflow:hidden;min-height:420px;display:flex;flex-direction:column;justify-content:space-between;padding:32px;text-decoration:none;color:inherit;border:1px solid #2a2a30;transition:transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s}
+  .card:hover{transform:translateY(-4px)}
+  .card .num{font-family:'Space Mono',monospace;font-weight:700;font-size:18px;letter-spacing:.05em;opacity:.7}
+  .card .tit{margin-top:auto}
+  .card .label{font-size:11px;letter-spacing:.25em;text-transform:uppercase;opacity:.7;margin-bottom:10px}
+  .card .name{font-size:clamp(28px,3vw,44px);line-height:1}
+  .card .sub{margin-top:14px;font-size:14px;line-height:1.55;opacity:.8;max-width:44ch}
+  .card .open{margin-top:24px;display:inline-flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding-top:16px;border-top:1px solid currentColor;width:fit-content;opacity:.85}
+  .card .open .arrow{transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+  .card:hover .open .arrow{transform:translateX(6px)}
+
+  /* card 01 — brutalist */
+  .c01{background:#fafafa;color:#0a0a0a;
+    background-image:
+      repeating-linear-gradient(to right, #0a0a0a 0 1px, transparent 1px 40px),
+      repeating-linear-gradient(to bottom, #0a0a0a 0 1px, transparent 1px 40px);
+    background-size:40px 40px, 40px 40px;
+    background-color:#fafafa;
+    background-blend-mode:multiply;
+  }
+  .c01::before{content:"§01";position:absolute;top:24px;right:32px;font-family:'Space Mono',monospace;font-weight:700;font-size:56px;line-height:1;letter-spacing:-.04em}
+  .c01 .name{font-family:'Space Mono',monospace;font-weight:700;letter-spacing:-.03em;text-transform:uppercase}
+  .c01 .tit{position:relative}
+  .c01 .name em{font-style:normal;background:#ffd400;padding:0 8px;margin-left:-8px}
+  .c01 .num,.c01 .label{font-family:'Space Mono',monospace}
+
+  /* card 02 — CRT */
+  .c02{background:#0a0014;color:#e8e3ff;overflow:hidden}
+  .c02::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 100%, #ff2bd633 0%, transparent 70%),
+      radial-gradient(ellipse 60% 50% at 50% 0%, #00f0ff33 0%, transparent 70%),
+      repeating-linear-gradient(to bottom, rgba(255,255,255,.03) 0 1px, transparent 1px 3px);
+  }
+  .c02::after{content:"";position:absolute;left:-10%;right:-10%;bottom:-30%;height:70%;
+    background:
+      linear-gradient(to top, transparent 0%, #0a0014 100%),
+      repeating-linear-gradient(90deg, transparent 0 30px, #ff2bd6 30px 31px),
+      repeating-linear-gradient(0deg, transparent 0 40px, #ff2bd6 40px 41px);
+    transform:perspective(400px) rotateX(60deg);
+    opacity:.35;pointer-events:none;
+  }
+  .c02 > *{position:relative;z-index:2}
+  .c02 .name{font-family:'VT323',monospace;color:#00f0ff;text-shadow:0 0 16px #00f0ff, 0 0 32px #00f0ff;font-size:clamp(36px,4vw,56px);line-height:.95;text-transform:uppercase}
+  .c02 .name em{font-style:normal;color:#ff2bd6;text-shadow:0 0 16px #ff2bd6}
+  .c02 .num{color:#00f0ff;text-shadow:0 0 8px #00f0ff}
+  .c02 .label{color:#ff2bd6}
+  .c02 .sub{color:#c8c0ff}
+
+  /* card 03 — luxury */
+  .c03{background:#efe9db;color:#0b1220;border-color:#b8733333}
+  .c03::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.05;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  .c03 > *{position:relative}
+  .c03 .num{color:#b87333;font-family:'Fraunces',serif;font-style:italic;font-weight:500}
+  .c03 .name{font-family:'Fraunces',serif;font-weight:400;font-variation-settings:"opsz" 144;letter-spacing:-.02em}
+  .c03 .name em{color:#b87333;font-style:italic}
+  .c03 .label{color:#b87333;letter-spacing:.3em}
+  .c03::after{content:"—";position:absolute;bottom:32px;right:32px;font-family:'Fraunces',serif;font-style:italic;font-size:40px;color:#b87333;opacity:.5}
+
+  /* card 04 — techno-organic */
+  .c04{background:#0f1a14;color:#f2ead3;border-color:#c97a3b33}
+  .c04::before{content:"";position:absolute;inset:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, #c97a3b33 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 10% 90%, #6b8a6e33 0%, transparent 70%);
+  }
+  .c04::after{content:"";position:absolute;top:20px;right:20px;width:120px;height:160px;pointer-events:none;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 160'><path d='M 20 150 C 60 120, 10 80, 60 50 S 100 20, 80 5' fill='none' stroke='%23c97a3b' stroke-width='1.2' opacity='.7'/><path d='M 40 100 q -10 -6 -4 -18 q 16 2 18 16 q -8 4 -14 2 z' fill='%236b8a6e' opacity='.8'/><path d='M 70 60 q 12 -2 18 8 q -6 14 -22 12 q -4 -10 4 -20 z' fill='%236b8a6e' opacity='.8'/></svg>");
+  }
+  .c04 > *{position:relative;z-index:1}
+  .c04 .num{color:#c97a3b;font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;font-weight:400}
+  .c04 .name{font-family:'Instrument Serif',serif;font-weight:400}
+  .c04 .name em{color:#e09a5a;font-style:italic}
+  .c04 .label{color:#e09a5a}
+  .c04 .sub{color:#c7b99a}
+
+  /* bottom meta row */
+  .card .meta-row{display:flex;gap:16px;margin-top:18px;font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
+  .card .meta-row span{white-space:nowrap}
+
+  /* notes row */
+  .notes{margin-top:56px;padding-top:32px;border-top:1px solid #2a2a30;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;font-size:13px;color:#8a8a92}
+  .notes b{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:#ffd400;margin-bottom:8px;font-weight:500}
+  .notes a{color:#e8e8ea;text-decoration:underline;text-decoration-color:#444}
+  .notes a:hover{text-decoration-color:#ffd400}
+
+  @media(max-width:900px){
+    .grid{grid-template-columns:1fr}
+    .notes{grid-template-columns:1fr}
+    header{flex-direction:column;gap:16px;align-items:flex-start}
+    header .meta{text-align:left}
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <h1>Elige una <em>dirección</em></h1>
+  <div class="meta">
+    <b>Fase 1 / Design picker</b>
+    <span>Corrector FP · Medellín · 2026</span>
+  </div>
+</header>
+
+<p class="lede">
+  Cuatro mockups estáticos con estéticas radicalmente distintas para la landing del <b>corrector automático de factor de potencia</b>. Mismas ocho secciones narrativas, cuatro idiomas visuales incompatibles. Abre cada una, navégala completa, y elige la dirección antes de invertir en 3D y física.
+</p>
+
+<div class="grid">
+
+  <a class="card c01" href="01-editorial-brutalist.html">
+    <span class="num">§01 / EB</span>
+    <div class="tit">
+      <div class="label">Variante 01</div>
+      <div class="name">Editorial<br><em>Brutalist</em></div>
+      <div class="sub">Blueprint técnico en blanco y negro, tipografía oversized, reglas medidas, amarillo solo en métricas críticas. Sin gradientes, sin redondeados.</div>
+      <div class="meta-row"><span>Space Mono</span><span>JetBrains Mono</span><span>#fafafa · #0a0a0a · #ffd400</span></div>
+      <div class="open">Abrir variante <span class="arrow">→</span></div>
+    </div>
+  </a>
+
+  <a class="card c02" href="02-retro-crt-synthwave.html">
+    <span class="num">§02 / CRT</span>
+    <div class="tit">
+      <div class="label">Variante 02</div>
+      <div class="name">Retro CRT<br><em>Synthwave</em></div>
+      <div class="sub">Ventanas CRT con scanlines, glow cyan/magenta, osciloscopio animado, cursor parpadeante. Laboratorio 80s, retro-futurista.</div>
+      <div class="meta-row"><span>VT323</span><span>IBM Plex Mono</span><span>#0a0014 · #00f0ff · #ff2bd6</span></div>
+      <div class="open">Abrir variante <span class="arrow">→</span></div>
+    </div>
+  </a>
+
+  <a class="card c03" href="03-luxury-technical.html">
+    <span class="num">III / LX</span>
+    <div class="tit">
+      <div class="label">Variante 03</div>
+      <div class="name">Luxury<br><em>Technical</em></div>
+      <div class="sub">Informe técnico de lujo. Serif editorial, capitulares, papel con textura, cobre sobre navy, pull-quotes, tablas con numerales tabulares.</div>
+      <div class="meta-row"><span>Fraunces</span><span>Outfit</span><span>#efe9db · #b87333 · #0b1220</span></div>
+      <div class="open">Abrir capítulo <span class="arrow">→</span></div>
+    </div>
+  </a>
+
+  <a class="card c04" href="04-techno-organic.html">
+    <span class="num">· iv · TO</span>
+    <div class="tit">
+      <div class="label">Variante 04</div>
+      <div class="name">Techno<br><em>Organic</em></div>
+      <div class="sub">Circuitos como enredaderas, curvas orgánicas, grano cálido, verde bosque + cobre. Naturaleza e ingeniería conviviendo.</div>
+      <div class="meta-row"><span>Instrument Serif</span><span>Outfit</span><span>#0f1a14 · #c97a3b · #f2ead3</span></div>
+      <div class="open">Abrir variante <span class="arrow">→</span></div>
+    </div>
+  </a>
+
+</div>
+
+<div class="notes">
+  <div>
+    <b>cómo elegir</b>
+    Navega las 4 completas. Tapa el contenido: debería reconocerse la variante a golpe de vista. Si dos se parecen, una falló.
+  </div>
+  <div>
+    <b>criterio</b>
+    Impacto (wow) + encaje con el tono del seminario. No tiene que ganar en todo — solo ser la que mejor lo representa.
+  </div>
+  <div>
+    <b>siguiente</b>
+    Con la elegida arranca Fase 2: Three.js real, dominio hexagonal, física medible, test Vitest. Ver <a href="README.md">README</a>.
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>

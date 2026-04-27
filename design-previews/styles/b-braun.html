@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>B · Dieter Rams / Braun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Neue+Haas+Grotesk+Text+Pro&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#e9e7e3;--panel:#d6d3cc;--ink:#1a1a1a;--orange:#e8620a;--mute:#6d6a63}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;line-height:1.55}
+  .page{max-width:1280px;margin:0 auto;padding:40px;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;gap:32px}
+
+  header{display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+  header .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--orange);margin-right:8px;vertical-align:middle}
+
+  .hero{display:grid;grid-template-columns:1fr 1fr;gap:8px;border-radius:4px;overflow:hidden;background:var(--ink)}
+  .copy{background:var(--panel);padding:56px 48px;color:var(--ink);display:flex;flex-direction:column;justify-content:space-between}
+  .copy h1{font-family:'DM Sans',sans-serif;font-weight:500;font-size:clamp(36px,4.6vw,64px);letter-spacing:-.02em;line-height:1}
+  .copy h1 span{color:var(--orange)}
+  .kicker{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;margin-bottom:24px;color:var(--ink)}
+  .lead{margin-top:24px;font-size:15px;color:#333;max-width:42ch}
+  .specs{margin-top:32px;display:grid;grid-template-columns:auto 1fr;gap:4px 16px;font-family:'DM Mono',monospace;font-size:12px}
+  .specs dt{color:var(--mute)}
+  .specs dd{font-weight:500}
+  .cta{margin-top:28px;display:inline-flex;align-items:center;gap:10px;padding:12px 18px;background:var(--ink);color:var(--bg);text-decoration:none;font-size:12px;letter-spacing:.18em;text-transform:uppercase;border-radius:2px;width:fit-content}
+  .cta .d{width:8px;height:8px;border-radius:50%;background:var(--orange)}
+
+  .stage{background:var(--ink);color:#d6d3cc;padding:48px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;position:relative}
+  .stage::before{content:"";position:absolute;top:16px;left:16px;right:16px;height:1px;background:#333}
+  .stage::after{content:"FAN · 186 W · 220 V · cos φ 0,68";position:absolute;top:20px;left:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#8a867d}
+  .stage .model{position:absolute;bottom:20px;right:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#8a867d}
+
+  .fan{width:380px;height:380px;max-width:80%;position:relative}
+  .fan svg{width:100%;height:100%}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .blades{transform-origin:center;animation:spin 3s cubic-bezier(.6,.1,.4,.9) infinite}
+  .hub-ring{transform-origin:center;animation:spin 18s linear infinite reverse}
+
+  .pot{display:flex;gap:20px;align-items:center}
+  .pot .label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:#8a867d}
+  .pot .dial{width:60px;height:60px;border-radius:50%;background:#2a2a2a;border:2px solid #444;position:relative}
+  .pot .dial::before{content:"";position:absolute;top:6px;left:50%;width:2px;height:14px;background:var(--orange);transform:translateX(-50%)}
+  .pot .dial::after{content:"";position:absolute;inset:8px;border:1px solid #444;border-radius:50%}
+  .pot .led{width:10px;height:10px;border-radius:50%;background:var(--orange);box-shadow:0 0 10px var(--orange)}
+  .pot .led.off{background:#333;box-shadow:none}
+
+  footer{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+</style></head>
+<body>
+<div class="page">
+  <header>
+    <span><span class="dot"></span>FP — Braun-ish · product style</span>
+    <span>B / Rams 10 principles</span>
+  </header>
+
+  <section class="hero">
+    <div class="copy">
+      <div>
+        <div class="kicker">— Corrector automático FP-01</div>
+        <h1>Hace lo que<br>debe hacer.<br><span>Nada más.</span></h1>
+        <p class="lead">Un dispositivo pequeño que mide el desfase entre tensión y corriente, y conecta capacitancia hasta devolverlos a la misma fase. Discreto, medible, honesto.</p>
+        <dl class="specs">
+          <dt>Escalones</dt><dd>3 × 2,5 kVAR</dd>
+          <dt>Tensión</dt><dd>220 V · 60 Hz</dd>
+          <dt>cos φ entrada</dt><dd>0,72 ind.</dd>
+          <dt>cos φ salida</dt><dd>0,98</dd>
+        </dl>
+      </div>
+      <a href="#" class="cta"><span class="d"></span>Solicitar ficha</a>
+    </div>
+
+    <div class="stage">
+      <span class="model">M · 01 · 1/4 HP</span>
+      <div class="fan">
+        <svg viewBox="0 0 400 400">
+          <g class="hub-ring" fill="none" stroke="#d6d3cc" stroke-width="1" opacity=".3">
+            <circle cx="200" cy="200" r="190" stroke-dasharray="1 6"/>
+            <circle cx="200" cy="200" r="160"/>
+          </g>
+          <circle cx="200" cy="200" r="130" fill="none" stroke="#d6d3cc" stroke-width="2"/>
+          <g class="blades">
+            <g transform="translate(200 200)">
+              <path d="M0 -20 C -40 -50, -35 -110, 0 -120 C 35 -110, 40 -50, 0 -20 Z" fill="#d6d3cc"/>
+              <path d="M0 -20 C -40 -50, -35 -110, 0 -120 C 35 -110, 40 -50, 0 -20 Z" fill="#d6d3cc" transform="rotate(120)"/>
+              <path d="M0 -20 C -40 -50, -35 -110, 0 -120 C 35 -110, 40 -50, 0 -20 Z" fill="#e8620a" transform="rotate(240)"/>
+            </g>
+          </g>
+          <circle cx="200" cy="200" r="26" fill="#1a1a1a" stroke="#d6d3cc" stroke-width="2"/>
+          <circle cx="200" cy="200" r="6" fill="#e8620a"/>
+        </svg>
+      </div>
+      <div class="pot">
+        <div class="dial"></div>
+        <div class="label">cos φ</div>
+        <div class="led"></div>
+        <div class="led off"></div>
+        <div class="led off"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>B · Dieter Rams / Braun product</span>
+    <span>DM Sans + DM Mono</span>
+    <span>#e9e7e3 · #1a1a1a · #e8620a</span>
+    <span>ref: Braun ET66, Teenage Engineering OP-1</span>
+  </footer>
+</div>
+</body></html>

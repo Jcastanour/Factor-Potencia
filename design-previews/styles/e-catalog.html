@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>E · Catálogo industrial moderno</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#fafaf7;--ink:#0d0d0d;--panel:#ededea;--accent:#1f6f43;--mute:#6b6b68;--copper:#b06437}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;font-size:14.5px;line-height:1.55}
+  .page{max-width:1360px;margin:0 auto;padding:28px 40px;min-height:100vh;display:grid;grid-template-rows:auto 1fr auto;gap:24px}
+
+  header{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:20px;padding:14px 20px;background:var(--panel);border-radius:24px}
+  header .brand{font-weight:700;letter-spacing:-.01em;font-size:16px}
+  header .brand b{color:var(--accent)}
+  header nav{display:flex;gap:24px;justify-self:center;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+  header nav a{color:inherit;text-decoration:none}
+  header nav a.on{color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:2px}
+  header .sku{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--mute)}
+
+  .hero{display:grid;grid-template-columns:3fr 4fr;gap:20px}
+
+  .copy{background:var(--ink);color:var(--bg);border-radius:28px;padding:40px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+  .copy::before{content:"";position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,#1f6f4355 0%,transparent 70%)}
+  .copy > *{position:relative}
+  .tag{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid #ffffff33;border-radius:999px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#d6d6d0;margin-bottom:24px;width:fit-content}
+  .tag .d{width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent)}
+  h1{font-weight:500;font-size:clamp(38px,4.8vw,68px);letter-spacing:-.025em;line-height:1}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lead{margin-top:20px;color:#c9c9c1;max-width:42ch;font-size:15px}
+  .row-stats{margin-top:auto;padding-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;border-top:1px solid #ffffff22}
+  .row-stats .k{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#8a8a84;margin-bottom:4px}
+  .row-stats .v{font-size:26px;font-weight:500;letter-spacing:-.02em}
+  .row-stats .v em{font-style:normal;color:var(--accent)}
+  .btn-row{margin-top:24px;display:flex;gap:10px}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 20px;border-radius:999px;text-decoration:none;font-size:13px;letter-spacing:.08em;font-weight:500}
+  .btn.primary{background:var(--accent);color:var(--bg)}
+  .btn.ghost{border:1px solid #ffffff33;color:var(--bg)}
+
+  .stage{background:var(--panel);border-radius:28px;padding:36px;position:relative;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:stretch}
+  .fan-card{background:var(--bg);border-radius:20px;padding:24px;aspect-ratio:1/1;min-width:320px;display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 12px 30px #0d0d0d12}
+  .fan-card::before{content:"PRD-01 · ventilador 1/4 HP";position:absolute;top:14px;left:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute)}
+  .fan-card::after{content:"cos φ 0,68";position:absolute;bottom:14px;right:18px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--copper)}
+  .fan-card svg{width:85%;height:auto}
+
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .blades{animation:spin 3.2s cubic-bezier(.3,.1,.4,.9) infinite;transform-origin:center}
+
+  .side{display:flex;flex-direction:column;justify-content:space-between;gap:16px;padding:8px 0}
+  .side h3{font-size:18px;font-weight:500;letter-spacing:-.01em;margin-bottom:10px}
+  .feature{padding:16px 18px;background:var(--bg);border-radius:16px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center}
+  .feature .ic{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:500}
+  .feature .ic.a{background:var(--accent)}
+  .feature .ic.c{background:var(--copper)}
+  .feature .t{font-size:14px;font-weight:500}
+  .feature .sub{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--mute);margin-top:2px}
+  .feature .v{font-family:'IBM Plex Mono',monospace;font-size:15px;font-weight:500}
+
+  footer{display:flex;justify-content:space-between;padding:12px 20px;background:var(--panel);border-radius:20px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+</style></head>
+<body>
+<div class="page">
+  <header>
+    <div class="brand">Corrector·<b>FP</b></div>
+    <nav>
+      <a href="#" class="on">Producto</a>
+      <a href="#">Triángulo</a>
+      <a href="#">Laboratorio</a>
+      <a href="#">Coste</a>
+      <a href="#">Seminario</a>
+    </nav>
+    <span class="sku">sku · fp-01-r3</span>
+  </header>
+
+  <section class="hero">
+    <div class="copy">
+      <span class="tag"><span class="d"></span>medellín · seminario iii · 2026</span>
+      <h1>Pones el motor.<br>Nosotros ponemos<br>la <em>fase</em>.</h1>
+      <p class="lead">Un pequeño corrector automático que mide el desfase entre tensión y corriente, y conecta capacitancia hasta que vuelvan a ir juntas. Sin apagar la operación. Sin tocar el cableado.</p>
+      <div class="row-stats">
+        <div><div class="k">cos φ antes</div><div class="v">0,72</div></div>
+        <div><div class="k">cos φ después</div><div class="v"><em>0,98</em></div></div>
+        <div><div class="k">ahorro/año</div><div class="v">$566K</div></div>
+      </div>
+      <div class="btn-row">
+        <a href="#" class="btn primary">Pedir lectura →</a>
+        <a href="#" class="btn ghost">Ver ficha</a>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="fan-card">
+        <svg viewBox="-100 -100 200 200">
+          <g fill="none" stroke="#0d0d0d" stroke-width="1.2">
+            <circle r="90" stroke-dasharray="2 5" opacity=".4"/>
+            <circle r="78"/>
+            <circle r="20"/>
+          </g>
+          <g class="blades">
+            <path d="M0 -12 C -22 -30, -20 -65, 0 -72 C 20 -65, 22 -30, 0 -12 Z" fill="#0d0d0d"/>
+            <path d="M0 -12 C -22 -30, -20 -65, 0 -72 C 20 -65, 22 -30, 0 -12 Z" fill="#0d0d0d" transform="rotate(120)"/>
+            <path d="M0 -12 C -22 -30, -20 -65, 0 -72 C 20 -65, 22 -30, 0 -12 Z" fill="#1f6f43" transform="rotate(240)"/>
+          </g>
+          <circle r="6" fill="#b06437"/>
+        </svg>
+      </div>
+      <div class="side">
+        <h3>Detalle · módulo 01</h3>
+        <div class="feature">
+          <div class="ic a">φ</div>
+          <div><div class="t">Medición en vivo</div><div class="sub">TC 100/5 A · 60 Hz</div></div>
+          <div class="v">&lt; 200 ms</div>
+        </div>
+        <div class="feature">
+          <div class="ic">C</div>
+          <div><div class="t">Banco capacitivo</div><div class="sub">3 escalones conmutados</div></div>
+          <div class="v">2,5 kVAR</div>
+        </div>
+        <div class="feature">
+          <div class="ic c">$</div>
+          <div><div class="t">Sin penalización</div><div class="sub">objetivo cos φ ≥ 0,95</div></div>
+          <div class="v">–10%</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>E · Catálogo industrial moderno · product page</span>
+    <span>Space Grotesk + IBM Plex Mono</span>
+    <span>#fafaf7 · #0d0d0d · verde #1f6f43 · cobre #b06437</span>
+    <span>ref: Linear.app, Vercel product pages, Rivian catálogo</span>
+  </footer>
+</div>
+</body></html>

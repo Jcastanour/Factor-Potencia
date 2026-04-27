@@ -134,7 +134,7 @@ export const copy = {
     eyebrow: "Equipo",
     headline: "Proyecto Integrado de Ingeniería.",
     context: "Instituto de Educación en Ingeniería · Facultad de Minas · UNAL Medellín",
-    deadline: "Entrega · 23 / 03 / 2026",
+    deadline: "Entrega · 30 / 04 / 2026",
     advisor: "Asesor · Diego Alexander Herrera Uribe",
     integrantes: [
       "Maria Fernanda Rodríguez Morales",

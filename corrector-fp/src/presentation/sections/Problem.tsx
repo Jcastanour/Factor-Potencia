@@ -1,3 +1,5 @@
+import { Badge } from "@presentation/primitives/Badge";
+
 const STATS = [
   { label: "Penalización mínima", val: "25.000", unit: "COP / mes", accent: "amber" },
   { label: "Penalización máxima", val: "1.500.000", unit: "COP / mes", accent: "red" },
@@ -12,6 +14,7 @@ export function Problem() {
         <div className="sec-head reveal">
           <span className="num-tag">02 / 10</span>
           <span className="kicker">· El problema</span>
+          <Badge variant="estimation" label="Cifras estimadas" />
         </div>
         <div className="reveal">
           <h2>

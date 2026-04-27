@@ -4,7 +4,7 @@ import { clamp, fpColor } from "@shared/utils/design";
 
 function Readout({ k, v, unit, color }: { k: string; v: string; unit: string; color: string }) {
   return (
-    <div style={{ padding: "10px 12px", border: "1px solid var(--line)", borderRadius: 3, background: "#0A0D12" }}>
+    <div style={{ padding: "10px 12px", border: "1px solid var(--line)", borderRadius: 3, background: "var(--input-bg)" }}>
       <div className="mono" style={{ fontSize: 9.5, letterSpacing: "0.2em", color: "var(--fg-faint)" }}>
         {k}
       </div>
@@ -135,7 +135,7 @@ export default function Electrical() {
                     />
                   ))}
                   <line x1="0" y1={MID} x2={W} y2={MID} stroke="var(--line-strong)" />
-                  <path d={vPath} fill="none" stroke="#E8EEF5" strokeWidth="1.6" />
+                  <path d={vPath} fill="none" stroke="var(--fg)" strokeWidth="1.6" />
                   <path d={iPath} fill="none" stroke={fpColor(fp)} strokeWidth="1.8" />
                   <g>
                     <line x1={x1p} y1={MID} x2={x1p} y2={MID - AMP} stroke="var(--fg)" strokeDasharray="2 3" />
@@ -160,7 +160,7 @@ export default function Electrical() {
                     </text>
                   </g>
                   <g transform={`translate(14 22)`}>
-                    <line x1="0" y1="0" x2="20" y2="0" stroke="#E8EEF5" strokeWidth="1.6" />
+                    <line x1="0" y1="0" x2="20" y2="0" stroke="var(--fg)" strokeWidth="1.6" />
                     <text x="26" y="4" fill="var(--fg-dim)" fontSize="10" fontFamily="var(--mono)" letterSpacing="2">
                       V(t)
                     </text>
@@ -221,7 +221,7 @@ export default function Electrical() {
                 <svg viewBox={`0 0 ${TW} ${TH}`} width="100%" style={{ display: "block" }}>
                   <line x1={ox} y1={oy} x2={ox + scaleX} y2={oy} stroke="var(--line)" />
                   <line x1={ox} y1={oy} x2={ox} y2={oy - maxQ * scaleY} stroke="var(--line)" />
-                  <line x1={ox} y1={oy} x2={px} y2={oy} stroke="#E8EEF5" strokeWidth="2" />
+                  <line x1={ox} y1={oy} x2={px} y2={oy} stroke="var(--fg)" strokeWidth="2" />
                   <line x1={px} y1={oy} x2={px} y2={py} stroke="var(--amber)" strokeWidth="2" />
                   <line x1={ox} y1={oy} x2={px} y2={py} stroke="var(--cyan)" strokeWidth="2" />
                   <path
@@ -236,7 +236,7 @@ export default function Electrical() {
                   <text
                     x={(ox + px) / 2}
                     y={oy + 18}
-                    fill="#E8EEF5"
+                    fill="var(--fg)"
                     fontSize="11"
                     fontFamily="var(--mono)"
                     textAnchor="middle"
@@ -266,7 +266,7 @@ export default function Electrical() {
                   </text>
                 </svg>
                 <div style={{ marginTop: 14, display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 8 }}>
-                  <Readout k="P" v={P.toFixed(2)} unit="p.u." color="#E8EEF5" />
+                  <Readout k="P" v={P.toFixed(2)} unit="p.u." color="var(--fg)" />
                   <Readout k="Q" v={Q.toFixed(2)} unit="p.u." color="var(--amber)" />
                   <Readout k="S" v={S.toFixed(2)} unit="p.u." color="var(--cyan)" />
                 </div>

@@ -34,3 +34,21 @@ Thumbs.db
 *.pem
 .vercel
 coverage/
+
+# Documentos de contexto / borrador (no se publican)
+*.pdf
+contexto*.md
+PROJECT_CONTEXT.md
+/README.md
+
+# Carpetas exploratorias (no entran al deploy)
+legacy/
+design-previews/
+web/
+
+# Plans / agentes locales
+.agents/
+.claude/
+
+# Datos efímeros
+tmp/

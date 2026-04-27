@@ -1,3 +1,5 @@
+import { Badge } from "@presentation/primitives/Badge";
+
 export function CurrentState() {
   return (
     <section id="estado" data-screen-label="09 Estado" style={{ paddingBottom: 0 }}>
@@ -5,6 +7,7 @@ export function CurrentState() {
         <div className="sec-head reveal">
           <span className="num-tag">09 / 10</span>
           <span className="kicker">· Estado actual</span>
+          <Badge variant="concept" label="Boceto público" />
         </div>
         <div className="reveal" style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
           <h2 style={{ fontWeight: 300 }}>
@@ -14,8 +17,8 @@ export function CurrentState() {
           </h2>
           <p className="sec-sub" style={{ margin: "24px auto 0" }}>
             La página que estás viendo precede al primer prototipo funcional. Los comportamientos
-            simulados reflejan el firmware diseñado pero no validado en hardware. Entrega: 23 de
-            marzo de 2026.
+            simulados reflejan el firmware diseñado pero no validado en hardware. Entrega: 30 de
+            abril de 2026.
           </p>
         </div>
         <div className="hairline-gradient" />

@@ -149,9 +149,9 @@ function Fan({ fp, setFp }: { fp: number; setFp: (n: number) => void }) {
       <svg viewBox="0 0 500 500" width="100%" height="100%" style={{ display: "block" }}>
         <defs>
           <radialGradient id="bezelGrad" cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0%" stopColor="#0A0D12" />
-            <stop offset="80%" stopColor="#0A0D12" />
-            <stop offset="100%" stopColor="#12161C" />
+            <stop offset="0%" stopColor="var(--bg-elev)" />
+            <stop offset="80%" stopColor="var(--bg-elev)" />
+            <stop offset="100%" stopColor="var(--bg-elev-2)" />
           </radialGradient>
           <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
             <stop offset="0%" stopColor={color} stopOpacity="0.22" />
@@ -185,7 +185,7 @@ function Fan({ fp, setFp }: { fp: number; setFp: (n: number) => void }) {
           </g>
         </g>
 
-        <circle cx={CX} cy={CY} r="30" fill="#0A0D12" stroke="var(--line-strong)" strokeWidth="1" />
+        <circle cx={CX} cy={CY} r="30" fill="var(--bg-elev)" stroke="var(--line-strong)" strokeWidth="1" />
         <circle cx={CX} cy={CY} r="22" fill="none" stroke="var(--line)" strokeWidth="1" />
         <circle cx={CX} cy={CY} r="6" fill={color} />
         <circle cx={CX} cy={CY} r="6" fill={color} opacity="0.4" filter="url(#soft)" />
@@ -247,8 +247,11 @@ export default function Hero() {
             <a href="#demo" className="btn">
               Ver cómo funciona →
             </a>
-            <a href="#problema" className="btn ghost">
-              El problema
+            <a href="/dashboard" className="btn ghost">
+              Dashboard en vivo
+            </a>
+            <a href="/cotizar" className="btn ghost">
+              Cotizar
             </a>
           </div>
           <div className="stat-row">

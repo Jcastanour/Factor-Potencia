@@ -1,3 +1,5 @@
+import { Badge } from "@presentation/primitives/Badge";
+
 const CARDS = [
   { label: "Costo materiales", val: "193.000", unit: "COP · BOM estimado", accent: "cyan" },
   { label: "Precio sugerido", val: "350–450", unit: "mil COP · venta al comercio", accent: "" },
@@ -13,6 +15,7 @@ export function Value() {
         <div className="sec-head reveal">
           <span className="num-tag">08 / 10</span>
           <span className="kicker">· Por qué importa</span>
+          <Badge variant="projection" label="Proyección de mercado" />
         </div>
         <div className="reveal">
           <h2>

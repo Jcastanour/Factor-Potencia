@@ -36,7 +36,7 @@ export function Team() {
             <div className="team-card">
               <div className="role">Entrega</div>
               <div className="name mono" style={{ fontFamily: "var(--mono)" }}>
-                23 / 03 / 2026
+                30 / 04 / 2026
               </div>
             </div>
             <div className="team-card">
@@ -64,7 +64,15 @@ export function Team() {
       <div className="container" style={{ marginTop: 96 }}>
         <div className="footer">
           <span>© 2026 · Proyecto Integrado de Ingeniería</span>
-          <span>PFC · v0.1 · Boceto · Medellín</span>
+          <span style={{ display: "flex", gap: 18, flexWrap: "wrap" }}>
+            <a href="/dashboard" style={{ color: "inherit", textDecoration: "none" }}>
+              Dashboard
+            </a>
+            <a href="/cotizar" style={{ color: "inherit", textDecoration: "none" }}>
+              Cotizar
+            </a>
+            <span>PFC · v0.1 · Boceto · Medellín</span>
+          </span>
         </div>
       </div>
     </section>

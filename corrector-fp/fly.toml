@@ -1,0 +1,38 @@
+# Fly.io config — FactorPro (PFC UNAL)
+# App: factorpro
+# Región: iad (Ashburn, Virginia) — bog ya no está disponible
+
+app = "factorpro"
+primary_region = "iad"
+
+[build]
+
+[env]
+  NODE_ENV = "production"
+  TELEMETRY_SOURCE = "hybrid"
+  MAILER = "console"
+  DEMO_DEVICE_ID = "demo-device"
+  LEAD_NOTIFY_EMAIL = "equipo@example.com"
+  LEAD_FROM_EMAIL = "onboarding@resend.dev"
+  LEADS_JSONL_PATH = "/tmp/leads.jsonl"
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[http_service.checks]]
+  grace_period = "10s"
+  interval = "30s"
+  method = "GET"
+  path = "/api/health"
+  protocol = "http"
+  timeout = "5s"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 512

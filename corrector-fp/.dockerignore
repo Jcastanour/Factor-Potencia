@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+.github
+.vscode
+.idea
+*.log
+npm-debug.log*
+.env
+.env.local
+.env.*.local
+tmp
+out
+build
+README.md
+.DS_Store
+.vercel

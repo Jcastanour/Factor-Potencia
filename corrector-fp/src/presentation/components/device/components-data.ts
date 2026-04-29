@@ -15,8 +15,10 @@ export interface DeviceComponent {
   readonly role: string;
   readonly spec: string;
   readonly status: ComponentStatus;
-  /** Coordenadas dentro del SVG interno, sistema viewBox 800×520 con translate(400,260). */
+  /** @deprecated Coordenadas SVG legacy (viewBox 800×520). Conservadas por compatibilidad. */
   readonly hotspot: { x: number; y: number };
+  /** Posición en el sistema de la escena 3D (PCB centrado en origen, eje Y vertical). */
+  readonly position3D: readonly [number, number, number];
 }
 
 export const GROUPS: Record<FunctionalGroup, { label: string; order: number }> = {
@@ -36,6 +38,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "5 A · 250 VAC",
     status: "projection",
     hotspot: { x: -180, y: -78 },
+    position3D: [-2.0, 0.55, 0.55],
   },
   {
     id: "psu",
@@ -45,6 +48,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "Mean Well IRM-03 · 5 V / 600 mA",
     status: "prototype",
     hotspot: { x: -156, y: -62 },
+    position3D: [-2.0, 0.6, -0.6],
   },
   {
     id: "esp32",
@@ -54,15 +58,17 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "240 MHz · Wi-Fi · 2× ADC",
     status: "prototype",
     hotspot: { x: -15, y: -60 },
+    position3D: [-0.7, 0.4, -0.5],
   },
   {
     id: "lcd",
     group: "control",
-    label: "LCD 16×2 I²C",
-    role: "Muestra FP, P, Q, S y estado del banco en tiempo real.",
-    spec: "HD44780 · I²C · 5 V",
+    label: "Display OLED",
+    role: "Muestra FP, P, Q, S y estado del banco en tiempo real desde el frente.",
+    spec: "OLED 128×64 · I²C · 3.3 V",
     status: "prototype",
     hotspot: { x: 140, y: -65 },
+    position3D: [-1.25, 0.85, 1.205],
   },
   {
     id: "zmpt",
@@ -72,6 +78,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "0–250 VAC · escala ajustable",
     status: "prototype",
     hotspot: { x: -166, y: 20 },
+    position3D: [0.9, 0.5, -0.55],
   },
   {
     id: "sct",
@@ -81,6 +88,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "0–30 A · salida 1 V max",
     status: "prototype",
     hotspot: { x: -166, y: 72 },
+    position3D: [2.0, 0.5, -0.55],
   },
   {
     id: "ssr1",
@@ -90,6 +98,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "Solid State Relay · 25 A · 250 VAC",
     status: "prototype",
     hotspot: { x: -52, y: 22 },
+    position3D: [-0.7, 0.65, 0.0],
   },
   {
     id: "ssr2",
@@ -99,6 +108,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "Solid State Relay · 25 A · 250 VAC",
     status: "prototype",
     hotspot: { x: -8, y: 22 },
+    position3D: [-0.1, 0.65, 0.0],
   },
   {
     id: "ssr3",
@@ -108,6 +118,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "Solid State Relay · 25 A · 250 VAC",
     status: "prototype",
     hotspot: { x: 36, y: 22 },
+    position3D: [0.5, 0.65, 0.0],
   },
   {
     id: "cap1",
@@ -117,6 +128,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "5 µF · 450 VAC",
     status: "prototype",
     hotspot: { x: -34, y: 110 },
+    position3D: [1.4, 1.0, 0.6],
   },
   {
     id: "cap2",
@@ -126,6 +138,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "10 µF · 450 VAC",
     status: "prototype",
     hotspot: { x: 56, y: 110 },
+    position3D: [1.85, 1.1, 0.6],
   },
   {
     id: "cap3",
@@ -135,6 +148,7 @@ export const COMPONENTS: readonly DeviceComponent[] = [
     spec: "20 µF · 450 VAC",
     status: "prototype",
     hotspot: { x: 146, y: 110 },
+    position3D: [2.3, 1.1, 0.6],
   },
 ];
 

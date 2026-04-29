@@ -35,10 +35,10 @@ const MODES = [
 
 export function HowItWorks() {
   return (
-    <section id="como" data-screen-label="06 Como Funciona">
+    <section id="como" data-screen-label="07 Como Funciona">
       <div className="container">
         <div className="sec-head reveal">
-          <span className="num-tag">06 / 10</span>
+          <span className="num-tag">07 / 10</span>
           <span className="kicker">· Cómo funciona</span>
         </div>
         <div className="reveal">

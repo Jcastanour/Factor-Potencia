@@ -22,8 +22,8 @@ export default function Home() {
         <WhereItHappens />
         <Electrical />
         <Device />
-        <HowItWorks />
         <Demo />
+        <HowItWorks />
         <Value />
         <CurrentState />
         <Team />

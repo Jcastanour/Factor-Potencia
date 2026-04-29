@@ -83,10 +83,10 @@ export default function Demo() {
   const dashboardHref = `/dashboard?escenario=${scenarioId}`;
 
   return (
-    <section id="demo" data-screen-label="07 Demo">
+    <section id="demo" data-screen-label="06 Demo">
       <div className="container">
         <div className="sec-head reveal">
-          <span className="num-tag">07 / 10</span>
+          <span className="num-tag">06 / 10</span>
           <span className="kicker">· Demo interactivo</span>
         </div>
 
